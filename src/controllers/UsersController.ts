@@ -11,13 +11,14 @@ class UsersController {
            await knex('users').insert({login,password});
             return response.status(201).json({user:login, message: 'Usuário criado com sucesso'});
         } catch (err) {
-
-            let error = {};
-            err.code === 'ER_DUP_ENTRY' 
+            let errorMessage = {};
+            err.code === 'ER_DUP_ENTRY'  // mudar para erro numerico
                 ? 
-                error = response.json('Usuário já cadastrado') 
+                errorMessage = response.json('Usuário já cadastrado') 
                 : 
-                error = response.json(err)
+                errorMessage = response.json(err)
+
+            return errorMessage;
         }
         
     }
@@ -29,7 +30,7 @@ class UsersController {
            const test = await knex('users').where('id',user_id).delete();
             return response.status(204).send();
         } catch (err) {
-            return response.json(err);
+            return response.status(500).json(err);
         }
         
     }

@@ -14,9 +14,10 @@ routes.get('/stats', statsController.index); // traz os status globais do sistem
 routes.get('/users/:user_id/stats', statsController.userStats ); // traz os status de um usuario
 routes.get('/stats/:id', statsController.urlStats ); // traz os status de uma url
 
-routes.get('urls/:id', urlsController.index); // redireciona para o endereco original
-routes.post('users/:user_id/urls', urlsController.store); // cadastrar url
-routes.delete('urls/:id', urlsController.destroy); // apaga uma url
+routes.get('/:id', urlsController.index); // redireciona para o endereco original
+routes.get('/urls/:id', urlsController.show); // redireciona para o endereco original (usando o id do banco)
+routes.post('/users/:user_id/urls', urlsController.store); // cadastrar url
+routes.delete('/urls/:id', urlsController.destroy); // apaga uma url
 
 routes.post('/users', usersController.store); // criar novo usuario
 routes.delete('/user/:user_id', usersController.destroy); // deletar usuario

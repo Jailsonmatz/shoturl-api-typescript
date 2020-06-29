@@ -1,7 +1,9 @@
 import express , {Request, Response, NextFunction} from 'express';
-
 import cors from 'cors';
+import dotenv from 'dotenv';
 import routes from './routes';
+
+dotenv.config();
 
 const app = express();
 
@@ -11,4 +13,4 @@ app.use(express.json());
 
 app.use(routes);
 
-app.listen(3333);
+app.listen(process.env.APP_PORT);

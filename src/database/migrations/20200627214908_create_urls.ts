@@ -4,7 +4,7 @@ import * as Knex from "knex";
 export async function up(knex: Knex): Promise<any> {
     return knex.schema.createTable('urls', table => {
         table.increments('id').primary
-        table.string('original_url').notNullable()
+        table.string('url').notNullable()
         table.string('short_url').notNullable()
         table.integer('user_id').unsigned().notNullable()
         table.foreign('user_id').references('id').inTable('users')
