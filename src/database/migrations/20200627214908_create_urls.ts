@@ -8,6 +8,7 @@ export async function up(knex: Knex): Promise<any> {
         table.string('short_url').notNullable()
         table.integer('user_id').unsigned().notNullable()
         table.foreign('user_id').references('id').inTable('users')
+        table.integer('hit').defaultTo(0)
         table.timestamp('created_at').defaultTo(knex.fn.now())
         table.timestamp('updated_at').defaultTo(knex.fn.now())
     });

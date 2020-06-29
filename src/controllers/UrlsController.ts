@@ -6,12 +6,14 @@ class UrlsController {
     public async index (request: Request, response: Response){
         const id = request.params.id;
 
-        const data = await knex.select('url').from('urls').where('short_url',id).first();
+        const data = await knex.select('id','url','hit').from('urls').where('short_url',id).first();
     
         if(!data){
             return response.status(404).send();
         }
             
+        const hit = data.hit + 1;
+        await knex('urls').where('id', data.id).update('hit',hit);
         return response.status(301).redirect(data.url);
 
     }
@@ -19,11 +21,14 @@ class UrlsController {
     public async show(request: Request, response: Response){
         const id = request.params.id;
 
-        const data = await knex.select('url').from('urls').where('id',id).first();
+        const data = await knex.select('id','url','hit').from('urls').where('id',id).first();
         
         if(!data){
             return response.status(404).send();
         }
+
+        const hit = data.hit + 1;
+        await knex('urls').where('id', data.id).update('hit',hit);
             
         return response.status(301).redirect(data.url);
     }

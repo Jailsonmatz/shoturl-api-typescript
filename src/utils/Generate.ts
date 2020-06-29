@@ -6,4 +6,4 @@ class Generate{
     }
 }
 
-export default new Generate();
+export default new Generate;
