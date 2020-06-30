@@ -12,7 +12,7 @@ class UsersController {
             return response.status(201).json({user:login, message: 'Usuário criado com sucesso'});
         } catch (err) {
             let errorMessage = {};
-            err.code === 'ER_DUP_ENTRY'  // mudar para erro numerico
+            err.errno === 19
                 ? 
                 errorMessage = response.json('Usuário já cadastrado') 
                 : 
@@ -27,7 +27,7 @@ class UsersController {
         const {user_id} = request.params
 
         try {
-           const test = await knex('users').where('id',user_id).delete();
+           await knex('users').where('id',user_id).delete();
             return response.status(204).send();
         } catch (err) {
             return response.status(500).json(err);

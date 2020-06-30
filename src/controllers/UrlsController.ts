@@ -35,8 +35,14 @@ class UrlsController {
 
     public async store (request: Request, response: Response){
         const url: String = String(request.body.url);
-        const user_id: Number = Number(request.params.user_id);
+        const user_id = Number(request.params.user_id);
         const short_url = await generate.randomCode();
+
+        const validate = await knex.select('id').from('users').where('id',user_id).first();
+
+        if(!validate){
+            return response.status(400).json('Usuário não encontrado');
+        }
 
         try {
             const id = (await knex('urls').insert({url,short_url,user_id})).toString();

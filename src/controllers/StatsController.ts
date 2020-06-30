@@ -1,6 +1,5 @@
 import knex from '../database/connection';
 import {Request, Response} from 'express';
-import { Stats } from 'fs';
 
 class StatsController {
     public async index (request: Request, response: Response){
@@ -27,7 +26,9 @@ class StatsController {
             .where('user_id', id)
             .first();
 
-        if(!stats.url){
+            console.log('cegou aqui');
+            console.log(id);
+        if(stats.url === 0){
             response.status(400).json('Usuário näo encontrado!!');
         }
 
@@ -48,14 +49,7 @@ class StatsController {
         const req_id = request.params.id;
 
         let stats = await knex
-            .select(
-                'urls.id',
-                'urls.url',
-                'urls.short_url',
-                'urls.hit',
-                'users.login'
-            )
-            .join('users', 'users.id', 'urls.user_id')
+            .select('id', 'url', 'short_url','hit')
             .from('urls')
             .where('urls.id', req_id)
             .first();
