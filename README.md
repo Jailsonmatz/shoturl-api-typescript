@@ -25,6 +25,14 @@ execute o comando abaixo:
 
 
 ----
+
+## Insominia (API Client)
+
+>Caso queira importar todas as rotas. 
+    
+    Pegue o arquivo insominia_routes e import dentro do seu workspace
+   
+----
 ## Tarefas concluídas 
 * Construir a API (todos os endpoints) 
 * Rodar em Contêiner
